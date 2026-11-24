@@ -1,6 +1,16 @@
 #import "/lib/helpers.typ": *
 #import "/lib/theorems.typ": *
 
+
+== Unterschied zu DFA
+
+- Equivalenz von zwei DFA ist nicht in PSPACE
+  - man kann gleichheit mit mehreren algorithmen zeigen
+    - Produkt Automat
+    - Beide minimieren und dann vergleichen
+      - minimierung ist eindeutig
+      - in Polynomial Zeit berechnenba
+
 = Beweis
 
 Das Problem, zu entscheiden, ob zwei reguläre Ausdrücke $s, t$ dieselbe Sprache beschreiben (EQUIV), ist PSPACE-vollständig. Wir zeigen dazu im Folgenden zum einen, dass EQUIV in PSPACE liegt, und zum anderen, dass EQUIV PSPACE-schwer ist, sich also jedes beliebige Problem aus PSPACE in Polynomialzeit auf EQUIV reduzieren lässt.
@@ -70,11 +80,3 @@ $x in L(N) &<=> N(x) "akzeptiert" \
   - es gibt hier also zwei Arten von nicht determinimus
     - TM ist nichtdeterministisch sie rät also wenn es einen akzept. berechnungspfad gäbe den richtigen
 
-== Unterschied zu DFA
-
-- Equivalenz von zwei DFA ist nicht in PSPACE
-  - man kann gleichheit mit mehreren algorithmen zeigen
-    - Produkt Automat
-    - Beide minimieren und dann vergleichen
-      - minimierung ist eindeutig
-      - in Polynomial Zeit berechnenba
