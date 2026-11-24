@@ -44,11 +44,37 @@ damit wäre ein berechnungsverlauf für @fig-tm-ex $
 $
 
 == Zweiter teil
-$
-x in L(N) &<=> N(x) "akzeptiert" \
+
+- Beliebige TM $N$ aus PSPACE
+- Reduktion von N auf M wobei M $"EQ"_"RA"$ erkennt
+- Berechnungsverläufe werden Codiert
+  - Hier beispiel von TM zeigen und wie man codiert
+- Was zeigen wir
+  - Wird nicht direkt gezeigt sondern:
+    - ausdruck erkennt alle ungültigen Läufe
+    - und test ist hardcodiert $L(s) = L(Sigma^*)$
+      - wenn das gleich ist sind alle Läufe verwerfend
+$x in L(N) &<=> N(x) "akzeptiert" \
 &<=> "es gibt einen akzeptierenden Berechnungspfad" w "für" N(x) \
 &<=> exists w in Delta^*: w in.not L(M_x) \
-&<=> L(M_x) != Delta^*
-$
+&<=> L(M_x) != Delta^*$
+- Wie wird der Ausdruck $s$ gebaut
+  - $s_0$ erkennt alle Syntaktischen Fehler
+  - $s_1$ erkennt falschen Start
+  - $s_2$ erkennt falsches Ende
+  - $s_3$ erkennt falsche Übergänge
+  - $s = s_0 + s_1 + s_2 + s_3$
+  - manche Ausdrücke finden selbe Fehler, ist aber kein Problem
+  - hier würde ich gerne irgendwie aufdröseln wie lange das ist und wie stark das wächst
+- Dann muss M nichtdeterminsitisch raten
+  - es gibt hier also zwei Arten von nicht determinimus
+    - TM ist nichtdeterministisch sie rät also wenn es einen akzept. berechnungspfad gäbe den richtigen
 
-$Sigma Lambda$
+== Unterschied zu DFA
+
+- Equivalenz von zwei DFA ist nicht in PSPACE
+  - man kann gleichheit mit mehreren algorithmen zeigen
+    - Produkt Automat
+    - Beide minimieren und dann vergleichen
+      - minimierung ist eindeutig
+      - in Polynomial Zeit berechnenba
