@@ -53,3 +53,5 @@
 }
 
 #let eqL = $scripts(equiv)_L$
+
+#let EQ = $E Q$

@@ -28,6 +28,7 @@ Wir nennen alle von einem DEA erkennbaren Sprachen die Menge der *regulären Spr
   - $q_0$ der Startzustand,
   - $F subset.eq Q$, die Menge der akzeptierenden Zustände ist
 
+$epsilon$ bezeichnet das _leere Wort_.
 Ein Wort $w$ wird von $A$ akzeptiert, wenn _es einen_ Lauf von $A$ auf $w$ gibt, der in einem Zustand aus $F$ endet @schulz_grundlagen_2022[S. 35] 
 ]<def-NEA>
 
@@ -42,28 +43,65 @@ Zu einer regulären Sprache gibt es im Allgemeinen viele DEA, die sie erkennen. 
 ]<def-MN>
 
 
-- Kurzer Einstieg
-  - Setzen Inhalte des Grundlagenkurses voraus @schulz_grundlagen_2022
-    - DEA, NEA, Potenzmengenkonstruktion, Satz von Kleene, Myhill-Nerode,
-      minimaler DEA, TM/NTM, Polynomialzeit-Reduktion
-  - Hier nur: verwendete Notation + was über den Kurs hinausgeht
-
-- Myhill-Nerode Klassen
-  - Folgerung: Minimaler DEA ist eindeutig.
+// - Kurzer Einstieg
+//   - Setzen Inhalte des Grundlagenkurses voraus @schulz_grundlagen_2022
+//     - DEA, NEA, Potenzmengenkonstruktion, Satz von Kleene, Myhill-Nerode,
+//       minimaler DEA, TM/NTM, Polynomialzeit-Reduktion
+//   - Hier nur: verwendete Notation + was über den Kurs hinausgeht
+// - Myhill-Nerode Klassen
+//   - Folgerung: Minimaler DEA ist eindeutig.
 
 == Reguläre Ausdrücke
-- Definition (Syntax) – vorhandene Definition behalten
-- Semantik $L(r)$ in einer Zeile
-   - L(r): L(∅) = ∅, L(ε) = {ε}, L(a) = {a}, L(S+T) = L(S) ∪ L(T)
-- Konventionen
-  - Präzedenz: $*$ vor $dot$ vor $+$, Punkt und Klammern weglassen
-  - Abkürzungen: $r^n$, $r^+$ (hochgestellt, wegen $+$ als Vereinigung),
-    $Delta without {a}$ bzw. $Sigma$ als Kurzform für $a_1 + dots + a_k$
-- Größe $|r|$ (Anzahl Symbole) – wird für Laufzeit-/Platzaussagen gebraucht
-- EQUIV formal: ${(s, t) | L(s) = L(t)}$
-- Verweise (nur Satz + Zitat, kein Beweis)
-  - RA → ε-NEA mit $O(|r|)$ Zuständen
-  - NEA → DEA: bis zu $2^n$ Zustände
+
+Neben Automaten lassen sich reguläre Sprachen auch kompakt durch ein einzelnes Wort beschreiben, einen _regulären Ausdruck_ (RA).
+
+#definition(name: "Regulärer Ausdruck")[
+  Sei $Sigma$ ein Alphabet. Wir bezeichnen Wörter über
+  $Sigma union {(, ), *, +, dot, emptyset, epsilon}$, die nach folgenden
+  Regeln gebildet werden, als _reguläre Ausdrücke_:
+  - $emptyset$ und $epsilon$ sind reguläre Ausdrücke,
+  - für jedes $a in Sigma$ ist $a$ ein regulärer Ausdruck,
+  - sind $S$ und $T$ reguläre Ausdrücke, dann auch $(S + T)$, $(S dot T)$
+    und $(S)^*$
+]<def-RA>
+
+Die von einem RA $r$ beschriebene Sprache $L(r)$ ist induktiv definiert durch:
+
+- $L(emptyset) = emptyset$
+- $L(epsilon) = {epsilon}$
+- $L(a) = {a}$
+- $L(S + T) = L(S) union L(T)$ 
+- $L(S dot T) = L(S) dot L(T)$
+- $L(S^*) = L(S)^*$
+
+Zwei RA $S$ und $T$ heißen _äquivalent_, wenn $L(S) = L(T)$ gilt. Wir bezeichnen mit $EQ$ die Menge ${(s,t) | L(s) = L(t)}$.
+
+Zur besseren Lesbarkeit lassen wir den Punkt meist weg und schreiben $a b$
+statt $a dot b$. Außerdem verzichten wir auf unnötige Klammern; dabei bindet
+$*$ stärker als $dot$ und $dot$ stärker als $+$. Weiter verwenden wir für
+einen RA $r$ die Abkürzungen
+
+- $a^n$, wobei $a^1 = a, a^2=a a, ...$ 
+- $a^+ = a a^*$
+- $Delta without {a}$, wobei $Delta$ ein beliebiges Alphabet ist
+- für eine Menge ${a_1, dots, a_k} subset.eq Sigma$ die Menge selbst als Abkürzung für $a_1 + dots + a_k$; so stehen etwa $Sigma$ oder $Delta without {a}$ für den RA, der genau ein beliebiges Zeichen aus dieser Menge beschreibt
+
+Die _Größe_ $|r|$ eines RA ist die Anzahl seiner Symbole.
+
+Jeder RA $r$ lässt sich in einen NEA mit $O(|r|)$ Zuständen überführen @schulz_grundlagen_2022[S. ??]. Mit der Potenzmengenkonstruktion erhält man daraus einen DEA mit bis zu $2^(O(|r|))$ Zuständen.
+
+// - Definition (Syntax) – vorhandene Definition behalten
+// - Semantik $L(r)$ in einer Zeile
+//    - L(r): L(∅) = ∅, L(ε) = {ε}, L(a) = {a}, L(S+T) = L(S) ∪ L(T)
+// - Konventionen
+//   - Präzedenz: $*$ vor $dot$ vor $+$, Punkt und Klammern weglassen
+//   - Abkürzungen: $r^n$, $r^+$ (hochgestellt, wegen $+$ als Vereinigung),
+//     $Delta without {a}$ bzw. $Sigma$ als Kurzform für $a_1 + dots + a_k$
+// - Größe $|r|$ (Anzahl Symbole) – wird für Laufzeit-/Platzaussagen gebraucht
+// - EQUIV formal: ${(s, t) | L(s) = L(t)}$
+// - Verweise (nur Satz + Zitat, kein Beweis)
+//   - RA → ε-NEA mit $O(|r|)$ Zuständen
+//   - NEA → DEA: bis zu $2^n$ Zustände
   
 == Platzkomplexität
 // Nur ausführlich, falls nicht im Grundlagenkurs – sonst ein Absatz mit Verweisen
@@ -83,17 +121,6 @@ Zu einer regulären Sprache gibt es im Allgemeinen viele DEA, die sie erkennen. 
 
     
 
-Durch Reguläre Ausdrücke lassen sich Reguläre Sprachen kompakt durch ein Wort, statt durch einen Automaten, beschreiben.
-#definition(name: [Reguläre Ausdrücke (RA)])[
-  Sei $Sigma$ ein Alphabet mit
-  $Sigma inter {\(, \), +, dot, *, emptyset, epsilon} = emptyset$.
-  Die Menge der _regulären Ausdrücke_ über $Sigma$ ist die kleinste Menge
-  von Wörtern über $Sigma union {\(, \), +, dot, *, emptyset, epsilon}$,
-  für die gilt:
-  + $emptyset$ und $epsilon$ sind reguläre Ausdrücke.
-  + Jedes $a in Sigma$ ist ein regulärer Ausdruck.
-  + Sind $S$ und $T$ reguläre Ausdrücke, so sind auch
-    $(S + T)$, $(S dot T)$ und $(S)^*$ reguläre Ausdrücke.
-]
+
 
 #todo("präzendenz regeln, klammer regeln, vereinfachungen aci")

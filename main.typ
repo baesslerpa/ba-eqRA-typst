@@ -15,6 +15,8 @@
 )
 #let nur = sys.inputs.at("kapitel", default: none)
 
+#outline()
+
 #for (i, k) in kapitel.enumerate() {
   if nur == none or nur == k {
     if nur != none { counter(heading).update(i) }
