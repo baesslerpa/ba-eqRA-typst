@@ -51,3 +51,5 @@
   v(-1 * threshold)
   b
 }
+
+#let eqL = $scripts(equiv)_L$

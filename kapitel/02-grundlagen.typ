@@ -3,6 +3,45 @@
 
 = Grundlagen und Notation
 
+In diesem Kapitel werden wir kurz die für das Verständnis notwendigen Grundlagen wiederholen; eine Kenntnis der Inhalte wird vorausgesetzt. Die verwendete Notation orientiert sich am Lehrbuch "Grundlagen der Theoretischen Informatik" @schulz_grundlagen_2022.
+
+
+#definition(name: "Deterministischer Endlicher Automat")[
+  Wir definieren einen *DEA* durch ein Tupel $(Q, Sigma, delta, q_0, F)$ wobei
+  - $Q$ eine endliche, nicht-leere Menge der Zustände $q_0, ..., q_n$, 
+  - $Sigma$ ein endliches Alphabet, 
+  - $delta: Q times Sigma -> Q$ die Übergangsfunktion,
+  - $q_0$ der Startzustand,
+  - $F subset.eq Q$, die Menge der akzeptierenden Zustände ist
+
+  Ein Wort $w in Sigma^*$ wird von $A$ akzeptiert, wenn der Lauf von $A$ auf $w$ in einem Zustand aus $F$ endet @schulz_grundlagen_2022[S. 30]
+]<def-DEA>
+
+Die Menge der von einem DEA $A$ erkannten Wörter bildet die Sprache des Automaten $L(A)$.
+Wir nennen alle von einem DEA erkennbaren Sprachen die Menge der *regulären Sprachen*. 
+
+#definition(name: "Nichtdeterministischer Endlicher Automat")[
+  Wir definieren einen *NEA* durch ein Tupel $(Q, Sigma, delta, q_0, F)$ wobei
+  - $Q$ eine endliche, nicht-leere Menge der Zustände $q_0, ..., q_n$, 
+  - $Sigma$ ein endliches Alphabet, 
+  - $delta: Q times (Sigma union {epsilon})-> scr(P)(Q)$ die Übergangsfunktion,
+  - $q_0$ der Startzustand,
+  - $F subset.eq Q$, die Menge der akzeptierenden Zustände ist
+
+Ein Wort $w$ wird von $A$ akzeptiert, wenn _es einen_ Lauf von $A$ auf $w$ gibt, der in einem Zustand aus $F$ endet @schulz_grundlagen_2022[S. 35] 
+]<def-NEA>
+
+Damit ist jeder DEA kann auch als NEA aufgefasst werden. Umgekehrt lässt sich jeder NEA mit $n$ Zuständen über die Potenzmengenkonstruktion in einen äquivalenten DEA umwandeln, der jedoch bis zu $2^n$ Zustände haben kann @schulz_grundlagen_2022[S. 38].
+
+Zu einer regulären Sprache gibt es im Allgemeinen viele DEA, die sie erkennen. Unter diesen ist der _minimale_ DEA, also der mit den wenigsten Zuständen, jedoch bis auf Umbenennung der Zustände eindeutig. Seine Zustände entsprechen genau den Äquivalenzklassen der Myhill-Nerode-Relation von $L$ @schulz_grundlagen_2022[S. 48-49]. Für NEA gilt dies nicht: Minimale NEA sind im Allgemeinen nicht eindeutig.
+
+#definition(name: "Myhill-Nerode-Relation")[
+  Für eine Sprache $L$ über dem Alphabet $Sigma$ und zwei Wörtern $u,v in Sigma^*$ definieren wir die Relation $eqL$:
+
+  $ u eqL v <=> forall w in Sigma^*: (u w in L <=> v w in L) $
+]<def-MN>
+
+
 - Kurzer Einstieg
   - Setzen Inhalte des Grundlagenkurses voraus @schulz_grundlagen_2022
     - DEA, NEA, Potenzmengenkonstruktion, Satz von Kleene, Myhill-Nerode,

@@ -6,7 +6,12 @@
   "01-einleitung",
   "02-grundlagen", 
   "03-beweis",
-  "04-praxis"
+  "04-exakte-entscheidungen",
+  "05-heuristiken",
+  "06-evaluation",
+  "07-implementierung",
+  "08-fazit"
+  
 )
 #let nur = sys.inputs.at("kapitel", default: none)
 

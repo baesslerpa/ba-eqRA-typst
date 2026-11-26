@@ -4,7 +4,7 @@
 
 == Unterschied zu DFA
 
-- Equivalenz von zwei DFA ist nicht in PSPACE
+- EQalenz von zwei DFA ist nicht in PSPACE
   - man kann gleichheit mit mehreren algorithmen zeigen
     - Produkt Automat
     - Beide minimieren und dann vergleichen
@@ -13,11 +13,13 @@
 
 = Beweis
 
-Das Problem, zu entscheiden, ob zwei reguläre Ausdrücke $s, t$ dieselbe Sprache beschreiben (EQUIV), ist PSPACE-vollständig. Wir zeigen dazu im Folgenden zum einen, dass EQUIV in PSPACE liegt, und zum anderen, dass EQUIV PSPACE-schwer ist, sich also jedes beliebige Problem aus PSPACE in Polynomialzeit auf EQUIV reduzieren lässt.
+Das Problem, zu entscheiden, ob zwei reguläre Ausdrücke $s, t$ dieselbe Sprache beschreiben (EQ), ist PSPACE-vollständig. Wir zeigen dazu im Folgenden zum einen, dass EQ in PSPACE liegt, und zum anderen, dass EQ PSPACE-schwer ist, sich also jedes beliebige Problem aus PSPACE in Polynomialzeit auf EQ reduzieren lässt.
+
+Der Beweis folgt der Darstellung von Kozen @kozen_complexity_2004, die auf Stockmeyer und Meyer @stockmeyer_word_1973 zurückgeht.
 
 == Zugehörigkeit zu PSPACE
-Für die Zugehörigkeit zu PSPACE geben wir einen nichtdeterministischen Algorithmus mit polynomialem Platzbedarf an, der entscheidet, ob die Sprachen verschieden sind. Damit gilt $overline("EQUIV") in "NPSPACE"$. Nach dem Satz von Savitch ist $"NPSPACE" = "PSPACE"$, also $overline("EQUIV") in "PSPACE"$. 
-Da PSPACE unter Komplement abgeschlossen ist, folgt $"EQUIV" in "PSPACE"$.
+Für die Zugehörigkeit zu PSPACE geben wir einen nichtdeterministischen Algorithmus mit polynomialem Platzbedarf an, der entscheidet, ob die Sprachen verschieden sind. Damit gilt $overline("EQ") in "NPSPACE"$. Nach dem Satz von Savitch ist $"NPSPACE" = "PSPACE"$, also $overline("EQ") in "PSPACE"$. 
+Da PSPACE unter Komplement abgeschlossen ist, folgt $"EQ" in "PSPACE"$.
 
 Der Algorithmus rät hierzu nichtdeterministisch eine Eingabe $x$, die von genau einem der beiden Ausdrücke akzeptiert wird. Also ein Wort aus der symmetrischen Differenz der beiden Sprachen, das von einem der Automaten akzeptiert wird und vom anderen nicht.
 
@@ -41,7 +43,7 @@ Der angegebene Algorithmus benötigt zwar nur polynomialen Platz, kann im schlim
 
 Allgemein erhält man mit $n$ Zyklen paarweise teilerfremder Längen $p_1, dots, p_n$ einen Automaten mit $1 + p_1 + dots + p_n$ Zuständen, dessen kürzestes nicht akzeptiertes Wort die Länge $p_1 dot.c p_2 dot.c dots.c p_n$ hat. Wählt man für die $p_i$ die ersten $n$ Primzahlen, wächst die Zustandszahl polynomial in $n$, die Länge des kürzesten nicht akzeptierten Wortes dagegen exponentiell.
 
-Damit gilt $overline("EQUIV") in "NPSPACE"$ und mit der obigen Argumentation $"EQUIV" in "PSPACE"$.
+Damit gilt $overline("EQ") in "NPSPACE"$ und mit der obigen Argumentation $"EQ" in "PSPACE"$.
 
 == PSPACE-Schwere
 
@@ -52,6 +54,25 @@ caption: [Tets]
 damit wäre ein berechnungsverlauf für @fig-tm-ex $
 \#(q_0,a)a a⊔\#x(q_1,a)a⊔\#x⊔(q_2,a)⊔\# \ x⊔⊔(q_1,⊔)\#x⊔(q_3,⊔)⊔\#x(q_3,⊔)⊔⊔\#(q_3,x)⊔⊔⊔\#(q_a,⊔)⊔⊔⊔\#
 $
+
+= PSPACE-Vollständigkeit von EQ
+== Zugehörigkeit zu PSPACE
+- (Fließtext, wie vorhanden, gestrafft)
+- Beispiel: exponentiell lange kürzeste Trennwörter (Primzyklen)
+== PSPACE-Schwere
+- Idee: Ausdruck beschreibt alle Wörter, die KEIN akzeptierender Lauf sind
+- Kodierung von Berechnungsverläufen
+  - Annahmen: DTM, Platz p(n), feste Konfigurationslänge, Δ
+  - Beispiel @fig-tm-ex
+- Konstruktion von s_x = s_1 + s_2 + s_3
+  - Intuition: Vereinigung = "Raten" der Fehlerstelle
+- Korrektheit: x ∈ L ⟺ L(s_x) ≠ $Δ*$
+- Größe & Polynomialzeit (Tabelle)
+- Komplement-Schritt ⇒ EQ PSPACE-schwer
+- Bemerkung: mit Quadrierung → EXPSPACE (Meyer/Stockmeyer 1972)
+== Folgerungen
+- Universalität, NFA-Äquivalenz, Inklusion PSPACE-vollständig
+
 
 == Zweiter teil
 
