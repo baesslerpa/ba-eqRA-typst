@@ -53,5 +53,7 @@
 }
 
 #let eqL = $scripts(equiv)_L$
+#let neqL = $scripts(equiv.not)_L$
+
 
 #let EQ = $E Q$

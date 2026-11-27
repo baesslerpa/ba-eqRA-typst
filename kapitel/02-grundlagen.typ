@@ -14,11 +14,11 @@ In diesem Kapitel werden wir kurz die für das Verständnis notwendigen Grundlag
   - $q_0$ der Startzustand,
   - $F subset.eq Q$, die Menge der akzeptierenden Zustände ist
 
-  Ein Wort $w in Sigma^*$ wird von $A$ akzeptiert, wenn der Lauf von $A$ auf $w$ in einem Zustand aus $F$ endet @schulz_grundlagen_2022[S. 30]
+  Ein Wort $w in Sigma^*$ wird von DEA $A$ akzeptiert, wenn der Lauf von $A$ auf $w$ in einem Zustand aus $F$ endet @schulz_grundlagen_2022[S. 30]
 ]<def-DEA>
 
 Die Menge der von einem DEA $A$ erkannten Wörter bildet die Sprache des Automaten $L(A)$.
-Wir nennen alle von einem DEA erkennbaren Sprachen die Menge der *regulären Sprachen*. 
+Wir nennen alle von einem DEA erkennbaren Sprachen die Menge der *regulären Sprachen (REG)*. 
 
 #definition(name: "Nichtdeterministischer Endlicher Automat")[
   Wir definieren einen *NEA* durch ein Tupel $(Q, Sigma, delta, q_0, F)$ wobei
@@ -29,18 +29,41 @@ Wir nennen alle von einem DEA erkennbaren Sprachen die Menge der *regulären Spr
   - $F subset.eq Q$, die Menge der akzeptierenden Zustände ist
 
 $epsilon$ bezeichnet das _leere Wort_.
-Ein Wort $w$ wird von $A$ akzeptiert, wenn _es einen_ Lauf von $A$ auf $w$ gibt, der in einem Zustand aus $F$ endet @schulz_grundlagen_2022[S. 35] 
+Ein Wort $w$ wird von NEA $A$ akzeptiert, wenn _es einen_ Lauf von $A$ auf $w$ gibt, der in einem Zustand aus $F$ endet @schulz_grundlagen_2022[S. 35] 
 ]<def-NEA>
 
-Damit ist jeder DEA kann auch als NEA aufgefasst werden. Umgekehrt lässt sich jeder NEA mit $n$ Zuständen über die Potenzmengenkonstruktion in einen äquivalenten DEA umwandeln, der jedoch bis zu $2^n$ Zustände haben kann @schulz_grundlagen_2022[S. 38].
+Damit kann jeder DEA auch als NEA aufgefasst werden. Umgekehrt lässt sich jeder NEA mit $n$ Zuständen über die Potenzmengenkonstruktion in einen äquivalenten DEA umwandeln, der jedoch bis zu $2^n$ Zustände haben kann @schulz_grundlagen_2022[S. 38].
 
-Zu einer regulären Sprache gibt es im Allgemeinen viele DEA, die sie erkennen. Unter diesen ist der _minimale_ DEA, also der mit den wenigsten Zuständen, jedoch bis auf Umbenennung der Zustände eindeutig. Seine Zustände entsprechen genau den Äquivalenzklassen der Myhill-Nerode-Relation von $L$ @schulz_grundlagen_2022[S. 48-49]. Für NEA gilt dies nicht: Minimale NEA sind im Allgemeinen nicht eindeutig.
+Zu einer regulären Sprache gibt es im Allgemeinen viele DEA, die sie erkennen. Unter diesen ist der _minimale_ DEA, also der mit den wenigsten Zuständen, jedoch bis auf Umbenennung der Zustände eindeutig. Seine Zustände entsprechen genau den Äquivalenzklassen der Myhill-Nerode-Relation von $L$ @schulz_grundlagen_2022[S. 48-49]. 
+
+Für NEA gilt dies nicht: Minimale NEA sind im Allgemeinen nicht eindeutig.
 
 #definition(name: "Myhill-Nerode-Relation")[
   Für eine Sprache $L$ über dem Alphabet $Sigma$ und zwei Wörtern $u,v in Sigma^*$ definieren wir die Relation $eqL$:
 
   $ u eqL v <=> forall w in Sigma^*: (u w in L <=> v w in L) $
+
 ]<def-MN>
+
+Gilt $u neqL v$, so existiert ein $w in Sigma^*$ mit $u w in L$ und
+$v w in.not L$ (oder umgekehrt). Wir nennen $w$ ein _Trennwort_ für $u$ und $v$.
+
+Sei nun $A = (Q, Sigma, delta, q_0, F)$ ein DEA und $delta^*$ die auf Wörter erweiterte Übergangsfunktion. 
+
+#definition(name: "Zustandsäquivalenz, Trennwort")[
+  Sei $A = (Q, Sigma, delta, q_0, F)$ ein DEA. Zwei Zustände $p, q in Q$
+  heißen _äquivalent_, $p equiv q$, wenn
+  $ forall w in Sigma^*: (delta^*(p, w) in F <=> delta^*(q, w) in F). $
+  Andernfalls heißt jedes $w in Sigma^*$, für das genau einer der Zustände
+  $delta^*(p, w)$ und $delta^*(q, w)$ in $F$ liegt, ein _Trennwort_ für $p$
+  und $q$.
+]<def-zustand-aequiv>
+Für erreichbare Zustände gilt $p equiv q$ genau dann, wenn die Wörter, die von $q_0$ nach $p$ bzw. $q$ führen, bezüglich $eqL$ äquivalent sind.
+
+Um zwei DEA $M$ und $N$ mit disjunkten Zustandsmengen zu vergleichen, fassen wir sie als einen Automaten mit Zustandsmenge $Q_M union Q_N$,
+Übergangsfunktion $delta_M union delta_N$ und akzeptierenden Zuständen
+$F_M union F_N$ auf. Damit ist @def-zustand-aequiv auch auf Paare von
+Zuständen aus verschiedenen Automaten anwendbar und es gilt $ L(M) = L(N) <=> q_M equiv q_N, $ und ein Trennwort für $q_M$ und $q_N$ ist genau ein Wort aus der symmetrischen Differenz $L(M) triangle.stroked.t L(N) = (L(M) without L(N)) union  (L(N) without L(M))$.
 
 
 // - Kurzer Einstieg
